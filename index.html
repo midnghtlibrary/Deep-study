@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Abroad Study Room</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(160deg,#0f0b09,#1b1512,#2c211c,#151313);
+position:relative;
+color:white;
+}
+
+/* Vintage Wallpaper */
+
+body::before{
+content:"";
+position:absolute;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%,rgba(255,200,150,.08),transparent 30%),
+radial-gradient(circle at 80% 70%,rgba(255,170,170,.06),transparent 35%),
+url("https://www.transparenttextures.com/patterns/old-wall.png");
+opacity:.35;
+}
+
+/* Floating Dust */
+
+body::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background-image:
+radial-gradient(#ffffff 1px,transparent 1px);
+background-size:130px 130px;
+opacity:.08;
+animation:dust 60s linear infinite;
+}
+
+@keyframes dust{
+from{transform:translateY(0);}
+to{transform:translateY(120px);}
+}
+
+/* Glass Card */
+
+.container{
+position:relative;
+z-index:5;
+width:460px;
+padding:35px;
+border-radius:25px;
+background:rgba(30,20,18,.55);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 0 35px rgba(0,0,0,.5);
+text-align:center;
+}
+
+h1{
+font-family:'Cinzel',serif;
+font-size:34px;
+color:#f5d8b0;
+margin-bottom:8px;
+}
+
+.sub{
+font-size:13px;
+letter-spacing:3px;
+color:#c9b7aa;
+margin-bottom:30px;
+}
+
+/* Timer */
+
+.timer{
+font-size:55px;
+margin-bottom:10px;
+color:#fff5e8;
+font-weight:bold;
+}
+
+.stopwatch{
+font-size:26px;
+margin-top:20px;
+color:#f6d3d3;
+}
+
+.buttons button{
+
+margin:8px;
+padding:11px 22px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-size:15px;
+transition:.3s;
+
+}
+
+.start{
+background:#9b5d52;
+color:white;
+}
+
+.pause{
+background:#5e4b8b;
+color:white;
+}
+
+.reset{
+background:#b89064;
+color:white;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* Quote */
+
+.quote{
+
+margin-top:30px;
+padding:20px;
+border-left:3px solid #d8b17c;
+background:rgba(255,255,255,.05);
+font-style:italic;
+line-height:1.8;
+color:#f3ebe5;
+border-radius:10px;
+
+}
+
+/* Sakura */
+
+.petal{
+position:absolute;
+top:-20px;
+width:14px;
+height:14px;
+background:#ffc8da;
+border-radius:70% 0 70% 0;
+opacity:.9;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+
+0%{
+transform:translateY(-20px)
+translateX(0)
+rotate(0deg);
+}
+
+100%{
+transform:translateY(110vh)
+translateX(150px)
+rotate(720deg);
+}
+
+}
+
+.footer{
+
+margin-top:25px;
+font-size:12px;
+color:#b8a89c;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Dream Beyond Borders</h1>
+
+<div class="sub">
+WATTPAD • VINTAGE • STUDY ROOM
+</div>
+
+<!-- Pomodoro -->
+
+<div class="timer" id="timer">
+25:00
+</div>
+
+<div class="buttons">
+
+<button class="start" onclick="startTimer()">Start</button>
+
+<button class="pause" onclick="pauseTimer()">Pause</button>
+
+<button class="reset" onclick="resetTimer()">Reset</button>
+
+</div>
+
+<!-- Stopwatch -->
+
+<div class="stopwatch" id="stopwatch">
+00:00:00
+</div>
+
+<div class="buttons">
+
+<button class="start" onclick="startWatch()">Start Stopwatch</button>
+
+<button class="pause" onclick="pauseWatch()">Pause</button>
+
+<button class="reset" onclick="resetWatch()">Reset</button>
+
+</div>
+
+<div class="quote" id="quote">
+
+One day you'll zip up your suitcase, hold your passport in your hand, and board the flight you've imagined for years. Every chapter you finish today is a quiet investment in that future.
+
+</div>
+
+<div class="footer">
+
+Study quietly. Let your success make the noise.
+
+</div>
+
+</div>
+
+<script>
+
+/* Pomodoro */
+
+let seconds=1500;
+let timer;
+let running=false;
+
+function update(){
+
+let m=Math.floor(seconds/60);
+
+let s=seconds%60;
+
+document.getElementById("timer").innerHTML=
+String(m).padStart(2,'0')+":"+
+String(s).padStart(2,'0');
+
+}
+
+function startTimer(){
+
+if(running)return;
+
+running=true;
+
+timer=setInterval(()=>{
+
+if(seconds>0){
+
+seconds--;
+
+update();
+
+}else{
+
+clearInterval(timer);
+
+alert("Time for a 5 minute break 🌸");
+
+}
+
+},1000);
+
+}
+
+function pauseTimer(){
+
+clearInterval(timer);
+
+running=false;
+
+}
+
+function resetTimer(){
+
+clearInterval(timer);
+
+running=false;
+
+seconds=1500;
+
+update();
+
+}
+
+update();
+
+/* Stopwatch */
+
+let sw=0;
+let swTimer;
+
+function startWatch(){
+
+swTimer=setInterval(()=>{
+
+sw++;
+
+let h=Math.floor(sw/3600);
+
+let m=Math.floor((sw%3600)/60);
+
+let s=sw%60;
+
+document.getElementById("stopwatch").innerHTML=
+
+String(h).padStart(2,'0')+":"+
+
+String(m).padStart(2,'0')+":"+
+
+String(s).padStart(2,'0');
+
+},1000);
+
+}
+
+function pauseWatch(){
+
+clearInterval(swTimer);
+
+}
+
+function resetWatch(){
+
+clearInterval(swTimer);
+
+sw=0;
+
+document.getElementById("stopwatch").innerHTML="00:00:00";
+
+}
+
+/* Sakura */
+
+function petals(){
+
+const p=document.createElement("div");
+
+p.className="petal";
+
+p.style.left=Math.random()*100+"vw";
+
+p.style.animationDuration=(6+Math.random()*5)+"s";
+
+p.style.opacity=Math.random();
+
+p.style.transform="scale("+(0.5+Math.random())+")";
+
+document.body.appendChild(p);
+
+setTimeout(()=>{
+
+p.remove();
+
+},12000);
+
+}
+
+setInterval(petals,220);
+
+/* Quotes */
+
+const quotes=[
+
+"Every page you study today is another step toward the airport gate tomorrow.",
+
+"Don't chase comfort. Chase growth, and comfort will eventually find you.",
+
+"Imagine waking up in the country you've always dreamed of because you refused to give up today.",
+
+"Study until your future feels familiar instead of impossible.",
+
+"Your passport won't change your life. Your discipline will.",
+
+"Your future apartment abroad is being built one study session at a time."
+
+];
+
+setInterval(()=>{
+
+document.getElementById("quote").innerHTML=
+
+quotes[Math.floor(Math.random()*quotes.length)];
+
+},12000);
+
+</script>
+
+</body>
+</html>
